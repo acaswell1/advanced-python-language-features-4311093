@@ -13,10 +13,27 @@
 
 
 def string_combiner(*args, unique=False):
+    """
+    string_combiner(*args, unique=False) -> given strings or numbers,
+    the string combiner method with combine them into a single string. 
+    If set to true the unique field will require all chars in the sting
+    to be totally unique. (NOTE: Types other than strings and ints ignored)
+
+    Parameters:
+    *args -> list of strings to combine
+    unique -> boolean determining char uniqueness
+
+    Returns:
+    string made up of the strings passed to args
+    """
     result = ""
 
-    # YOUR CODE HERE
-
+    for entry in args:
+        if isinstance(entry, (str, int)):
+            entry = str(entry)
+            for char in entry:
+                if not unique or (unique and (result.find(char)) == -1):
+                    result += char
     return result
 
 
