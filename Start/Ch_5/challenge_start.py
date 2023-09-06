@@ -38,4 +38,41 @@ test_orders = [
     ]
 ]
 
-# TODO: process each order
+# process each order
+
+for order in test_orders:
+    ORD_TOTAL = 0
+    print("-----------------")
+    for item in order:
+        match item:
+            case ["shirt" | "pants" | "jacket" | "dress", str(), bool(), bool()] \
+                    as dry_cleaning:
+                print(
+                    f"Dry Cleaning:({dry_cleaning[1]}) {dry_cleaning[0]} ", end='')
+                if dry_cleaning[2]:
+                    print("Starched ", end='')
+                    ORD_TOTAL += 2.00
+                if dry_cleaning[3]:
+                    print("same-day ", end='')
+                    ORD_TOTAL += 10.00
+                print()
+                ORD_TOTAL += 12.95
+            case [str(), float()] as wash_n_fold:
+                description, weight = wash_n_fold[0], wash_n_fold[1]
+                print(
+                    f"Wash/Fold: {description}, weight: {weight:.1f}")
+                item_price = weight * 4.95
+                if weight > 15.00:
+                    item_price *= 0.90
+                ORD_TOTAL += item_price
+            case ["comforter" | "cover", bool(), str()] as blankets:
+                blnkt_type, dryclean, size = blankets[0], blankets[1], blankets[2]
+                print(f"Blanket: ({size}) {blnkt_type}", end=" ")
+                if dryclean:
+                    print("Dry clean", end="")
+                print()
+                ORD_TOTAL += 25.00
+            case _:
+                print("Not found")
+    print(f"Order Total: {ORD_TOTAL:.2f}")
+    print("-----------------")

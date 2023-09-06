@@ -12,12 +12,18 @@ operations = [
     ["Sqrt", 9],
 ]
 
-result = 0
+RESULT = 0
 
-# TODO: process each operation along with the set of given numbers
+# process each operation along with the set of given numbers
 for op in operations:
     match op:
+        case "Mul", num1, num2:
+            RESULT = num1 * num2
+        case "Sqrt", num:
+            RESULT = math.sqrt(num)
+        case "Add", num1, *nums:
+            RESULT = num1 + sum(nums)
         case _:
             continue
 
-    print(f"{op}: {result}")
+    print(f"{op}: {RESULT}")
